@@ -1,13 +1,92 @@
-import { useState } from "react";
-import { Dialog, Disclosure } from "@headlessui/react";
+import { useState, Fragment } from "react";
+import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import {
+  ArrowPathIcon,
   Bars3Icon,
+  ChartPieIcon,
+  CursorArrowRaysIcon,
+  FingerPrintIcon,
+  SquaresPlusIcon,
   XMarkIcon,
   MinusSmallIcon,
   PlusSmallIcon,
 } from "@heroicons/react/24/outline";
-import { ChevronRightIcon } from "@heroicons/react/20/solid";
+import {
+  ChevronRightIcon,
+  PhoneIcon,
+  ChevronDownIcon,
+  PlayCircleIcon,
+} from "@heroicons/react/20/solid";
 import paperIcon from "./assets/paper.png";
+import paperFontIcon from "./assets/paper-font-1.png";
+
+import teamCeoIcon from "./assets/team/ceo.png";
+import teamCooIcon from "./assets/team/coo.png";
+import teamSmIcon from "./assets/team/sm.png";
+import teamFmIcon from "./assets/team/fm.png";
+import teamOmIcon from "./assets/team/om.png";
+import partnershipBwcIcon from "./assets/partnership/bwc.png";
+import partnershipScrollIcon from "./assets/partnership/scroll.png";
+import partnershipP25Icon from "./assets/partnership/p25.png";
+const products = [
+  // {
+  //   name: "Analytics",
+  //   description: "Get a better understanding of your traffic",
+  //   href: "#",
+  //   icon: ChartPieIcon,
+  // },
+  // {
+  //   name: "Engagement",
+  //   description: "Speak directly to your customers",
+  //   href: "#",
+  //   icon: CursorArrowRaysIcon,
+  // },
+  // {
+  //   name: "Security",
+  //   description: "Your customers’ data will be safe and secure",
+  //   href: "#",
+  //   icon: FingerPrintIcon,
+  // },
+  // {
+  //   name: "Integrations",
+  //   description: "Connect with third-party tools",
+  //   href: "#",
+  //   icon: SquaresPlusIcon,
+  // },
+  {
+    name: "Paper Swap",
+    description: "A decentralized exchange (DEX)",
+    href: "https://paperswap.vercel.app/",
+    icon: ArrowPathIcon,
+  },
+];
+const callsToAction = [
+  { name: "Watch", href: "#", icon: PlayCircleIcon },
+  { name: "Contact", href: "#contact", icon: PhoneIcon },
+];
+const company = [
+  {
+    name: "About us",
+    href: "#team",
+    description: "Learn more about our team",
+  },
+  {
+    name: "Roadmap",
+    href: "#roadmap",
+    description: "Start our development trajectory",
+  },
+  {
+    name: "Contact",
+    href: "#contact",
+    description: "Provide assistance and consultants",
+  },
+  // {
+  //   name: "Blog",
+  //   href: "#",
+  //   description:
+  //     "Read our latest announcements and get perspectives from our team",
+  // },
+];
 
 const navigation = [
   { name: "Product", href: "#" },
@@ -16,9 +95,9 @@ const navigation = [
   { name: "Company", href: "#" },
 ];
 const stats = [
-  { label: "Transactions every 24 hours", value: "44 million" },
-  { label: "Assets under holding", value: "$119 trillion" },
-  { label: "New users annually", value: "46,000" },
+  { label: "Transactions every 24 hours", value: "4,400" },
+  { label: "Assets under pool", value: "$1 million" },
+  { label: "New users every 24 hours", value: "2,100" },
 ];
 const values = [
   {
@@ -52,36 +131,61 @@ const values = [
       "Ipsa in earum deserunt aut. Quos minus aut animi et soluta. Ipsum dicta ut quia eius. Possimus reprehenderit iste aspernatur ut est velit consequatur distinctio.",
   },
 ];
+const timeline = [
+  {
+    name: "Initial Release",
+    description:
+      "This phase involves the launch of the DEX available to Scroll users. We will assemble the wheels on the brand-new car that is Scroll.",
+    date: "Q3 2023",
+    dateTime: "Q3 2023",
+  },
+  {
+    name: "Building the Foundation",
+    description:
+      "After the initial release, we plan to build a solid foundation for the project to progress to the next stage. Once this foundation is established, the focus will shift towards developing the ecosystem of PaperSwap.",
+    date: "Q3 2023",
+    dateTime: "Q3 2023",
+  },
+  {
+    name: "Comprehensive Upgrade",
+    description:
+      "In this phase, we will enter the updates of the V2 version, building more DeFi features and products to integrate into a robust ecosystem.",
+    date: "Q4 2023 - Q1 2024",
+    dateTime: "Q4 2023 - Q1 2024",
+  },
+  {
+    name: "Complete Decentralization",
+    description:
+      "Build a sound DAO organization, completely break away from centralized control, and completely delegate governance power to the community.",
+    date: "Q2 2024 - Future",
+    dateTime: "2024 - Future",
+  },
+];
 const team = [
   {
-    name: "Michael Foster",
-    role: "Co-Founder / CTO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+    name: "Lee",
+    role: "Co-Founder / CEO",
+    imageUrl: teamCeoIcon,
   },
   {
-    name: "Michael Foster",
-    role: "Co-Founder / CTO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+    name: "Tang",
+    role: "Co-Founder / COO",
+    imageUrl: teamCooIcon,
   },
   {
-    name: "Michael Foster",
-    role: "Co-Founder / CTO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+    name: "P P",
+    role: "SmartContract Manager(6)",
+    imageUrl: teamSmIcon,
   },
   {
-    name: "Michael Foster",
-    role: "Co-Founder / CTO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+    name: "Lu",
+    role: "Front Manager(4)",
+    imageUrl: teamFmIcon,
   },
   {
-    name: "Michael Foster",
-    role: "Co-Founder / CTO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+    name: "ミッキー",
+    role: "Operation Manager(6)",
+    imageUrl: teamOmIcon,
   },
   // More people...
 ];
@@ -135,11 +239,11 @@ const faqs = [
 ];
 const footerNavigation = {
   main: [
-    { name: "Blog", href: "#" },
-    { name: "Jobs", href: "#" },
-    { name: "Press", href: "#" },
-    { name: "Accessibility", href: "#" },
-    { name: "Partners", href: "#" },
+    // { name: "Blog", href: "#" },
+    // { name: "Jobs", href: "#" },
+    // { name: "Press", href: "#" },
+    // { name: "Accessibility", href: "#" },
+    // { name: "Partners", href: "#" },
   ],
   social: [
     // {
@@ -212,44 +316,148 @@ export default function Example() {
   return (
     <div className="bg-white w-screen">
       {/* Header */}
-      <header className="absolute inset-x-0 top-0 z-50">
+      <header className="bg-white">
         <nav
           className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
+            <a href="#" className="-m-1.5 p-1.5 flex">
               <span className="sr-only">Your Company</span>
               <img className="h-8 w-auto" src={paperIcon} alt="" />
+              <img className="h-8 w-auto" src={paperFontIcon} alt="" />
             </a>
           </div>
           <div className="flex lg:hidden">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 focus:outline-none focus-visible:outline-none hover:border-white"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-semibold leading-6 text-gray-900"
+          <Popover.Group className="hidden lg:flex lg:gap-x-12">
+            <Popover className="relative">
+              <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900  focus:outline-none focus-visible:outline-none hover:border-white">
+                Product
+                <ChevronDownIcon
+                  className="h-5 w-5 flex-none text-gray-400"
+                  aria-hidden="true"
+                />
+              </Popover.Button>
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease-in duration-150"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-1"
               >
-                {item.name}
+                <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+                  <div className="p-4">
+                    {products.map((item) => (
+                      <div
+                        key={item.name}
+                        className="group relative flex gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                      >
+                        <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                          <item.icon
+                            className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <div className="flex-auto">
+                          <a
+                            href={item.href}
+                            className="block font-semibold text-gray-900"
+                          >
+                            {item.name}
+                            <span className="absolute inset-0" />
+                          </a>
+                          <p className="mt-1 text-gray-600">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+                    {callsToAction.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+                      >
+                        <item.icon
+                          className="h-5 w-5 flex-none text-gray-400"
+                          aria-hidden="true"
+                        />
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </Popover.Panel>
+              </Transition>
+            </Popover>
+            <div className="flex justify-center items-center">
+              <a
+                href="#features"
+                className="text-sm font-semibold leading-6 text-gray-900 "
+              >
+                Features
               </a>
-            ))}
-          </div>
+            </div>
+
+            <Popover className="relative">
+              <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 focus:outline-none focus-visible:outline-none hover:border-white">
+                Company
+                <ChevronDownIcon
+                  className="h-5 w-5 flex-none text-gray-400"
+                  aria-hidden="true"
+                />
+              </Popover.Button>
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease-in duration-150"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-1"
+              >
+                <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-96 rounded-3xl bg-white p-4 shadow-lg ring-1 ring-gray-900/5">
+                  {company.map((item) => (
+                    <div
+                      key={item.name}
+                      className="relative rounded-lg p-4 hover:bg-gray-50"
+                    >
+                      <a
+                        href={item.href}
+                        className="block text-sm font-semibold leading-6 text-gray-900"
+                      >
+                        {item.name}
+                        <span className="absolute inset-0" />
+                      </a>
+                      <p className="mt-1 text-sm leading-6 text-gray-600">
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </Popover.Panel>
+              </Transition>
+            </Popover>
+          </Popover.Group>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a
-              href="https://paperswap.vercel.app/swap"
+              href="https://paperswap.vercel.app/"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
-              Launch App <span aria-hidden="true">&rarr;</span>
+              Get App <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </nav>
@@ -259,44 +467,81 @@ export default function Example() {
           open={mobileMenuOpen}
           onClose={setMobileMenuOpen}
         >
-          <div className="fixed inset-0 z-50" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-            <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
-                <img className="h-8 w-auto" src={paperIcon} alt="" />
-              </a>
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span className="sr-only">Close menu</span>
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
+          <div className="fixed inset-0 z-10" />
+          <Dialog.Panel className="fixed inset-y-0 right-0 z-10 flex w-full flex-col justify-between overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div className="p-6">
+              <div className="flex items-center justify-between">
+                <a href="#" className="-m-1.5 p-1.5">
+                  <span className="sr-only">Your Company</span>
+                  <img className="h-8 w-auto" src={paperIcon} alt="" />
+                </a>
+                <button
+                  type="button"
+                  className="-m-2.5 rounded-md p-2.5 text-gray-700 focus:outline-none focus-visible:outline-none hover:border-white"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="sr-only">Close menu</span>
+                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+              <div className="mt-6 flow-root">
+                <div className="-my-6 divide-y divide-gray-500/10">
+                  <div className="space-y-2 py-6">
+                    {products.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      >
+                        <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                          <item.icon
+                            className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                  <div className="space-y-2 py-6">
                     <a
-                      key={item.name}
-                      href={item.href}
+                      href="features"
                       className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     >
-                      {item.name}
+                      Features
                     </a>
-                  ))}
-                </div>
-                <div className="py-6">
-                  <a
-                    href="https://paperswap.vercel.app"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Launch App
-                  </a>
+
+                    {company.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      >
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                  <div className="py-6">
+                    <a
+                      href="https://paperswap.vercel.app/"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      Get App
+                    </a>
+                  </div>
                 </div>
               </div>
+            </div>
+            <div className="sticky bottom-0 grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50 text-center">
+              {callsToAction.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="p-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100"
+                >
+                  {item.name}
+                </a>
+              ))}
             </div>
           </Dialog.Panel>
         </Dialog>
@@ -316,7 +561,7 @@ export default function Example() {
                   <div className="mt-12 sm:mt-16 lg:mt-8">
                     <a href="#" className="inline-flex space-x-6">
                       <span className="rounded-full bg-indigo-600/10 px-3 py-1 text-sm font-semibold leading-6 text-indigo-600 ring-1 ring-inset ring-indigo-600/10">
-                        Powered by PaperLabs
+                        Powered by Paper Labs
                       </span>
                       <span className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-600">
                         <span>Just shipped v1.0.0</span>
@@ -386,18 +631,18 @@ export default function Example() {
                             <div className="text-indigo-600">
                               &nbsp; solidity
                             </div>
-                            <div className="text-gray-500">&nbsp; ^0.8.17;</div>
+                            <div className="text-gray-300">&nbsp; ^0.8.17;</div>
                           </div>
                           <p>&nbsp;</p>
                           <div className="flex">
-                            <div className="text-indigo-600">contract</div>
-                            <div className="text-green-400">&nbsp; AMM</div>
-                            <div className="text-indigo-600">&nbsp; is</div>
-                            <div className="text-green-400">&nbsp; IAMM</div>
+                            <div className="text-red-500">contract</div>
+                            <div className="text-gray-300">&nbsp; AMM</div>
+                            <div className="text-red-500">&nbsp; is</div>
+                            <div className="text-gray-300">&nbsp; IAMM</div>
                             <div className="text-yellow-300">&nbsp; {`{`}</div>
                           </div>
                           <p>&nbsp;</p>
-                          <div className=" text-gray-500">
+                          <div className=" text-gray-300">
                             <div>
                               &nbsp;&nbsp; &nbsp; &nbsp;
                               {`mapping(address => address) pairCreator;`}
@@ -438,7 +683,10 @@ export default function Example() {
         </div>
 
         {/* Content section */}
-        <div className="mx-auto mt-6 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:mt-4">
+        <div
+          id="features"
+          className="mx-auto mt-6 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:mt-4"
+        >
           <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               Our mission
@@ -515,9 +763,43 @@ export default function Example() {
             ))}
           </dl>
         </div> */}
+        {/* timeline */}
+        <div id="roadmap" className="bg-white py-24 sm:py-32">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-4">
+              {timeline.map((item) => (
+                <div key={item.name}>
+                  <time
+                    dateTime={item.dateTime}
+                    className="flex items-center text-sm font-semibold leading-6 text-indigo-600"
+                  >
+                    <svg
+                      viewBox="0 0 4 4"
+                      className="mr-4 h-1 w-1 flex-none"
+                      aria-hidden="true"
+                    >
+                      <circle cx={2} cy={2} r={2} fill="currentColor" />
+                    </svg>
+                    {item.date}
+                    <div
+                      className="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0"
+                      aria-hidden="true"
+                    />
+                  </time>
+                  <p className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
+                    {item.name}
+                  </p>
+                  <p className="mt-1 text-base leading-7 text-gray-600">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* Logo cloud */}
-        <div className="relative isolate -z-10 mt-32 sm:mt-48">
+        <div className="relative isolate -z-10 mt-16 sm:mt-24">
           <div className="absolute inset-x-0 top-1/2 -z-10 flex -translate-y-1/2 justify-center overflow-hidden [mask-image:radial-gradient(50%_45%_at_50%_55%,white,transparent)]">
             <svg
               className="h-[40rem] w-[80rem] flex-none stroke-gray-200"
@@ -554,29 +836,29 @@ export default function Example() {
             <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">
               Trusted by the world’s most innovative teams
             </h2>
-            <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+            <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-3">
               <img
                 className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg"
+                src={partnershipBwcIcon}
                 alt="Transistor"
                 width={158}
                 height={48}
               />
               <img
                 className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg"
+                src={partnershipScrollIcon}
                 alt="Reform"
                 width={158}
                 height={48}
               />
               <img
                 className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg"
+                src={partnershipP25Icon}
                 alt="Tuple"
                 width={158}
                 height={48}
               />
-              <img
+              {/* <img
                 className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
                 src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg"
                 alt="SavvyCal"
@@ -589,13 +871,16 @@ export default function Example() {
                 alt="Statamic"
                 width={158}
                 height={48}
-              />
+              /> */}
             </div>
           </div>
         </div>
 
         {/* Team section */}
-        <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
+        <div
+          id="team"
+          className="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8"
+        >
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               Our team
@@ -613,7 +898,7 @@ export default function Example() {
             {team.map((person) => (
               <li key={person.name}>
                 <img
-                  className="mx-auto h-24 w-24 rounded-full"
+                  className="mx-auto h-24 w-24 rounded-xl"
                   src={person.imageUrl}
                   alt=""
                 />
@@ -683,7 +968,7 @@ export default function Example() {
         </div> */}
 
         {/* faqs */}
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:pt-32 lg:px-8 lg:py-40">
+        {/* <div className="mx-auto max-w-7xl px-6 py-24 sm:pt-32 lg:px-8 lg:py-40">
           <div className="lg:grid lg:grid-cols-12 lg:gap-8">
             <div className="lg:col-span-5">
               <h2 className="text-2xl font-bold leading-10 tracking-tight text-gray-900">
@@ -713,6 +998,97 @@ export default function Example() {
                   </div>
                 ))}
               </dl>
+            </div>
+          </div>
+        </div> */}
+        {/* contact us */}
+        <div id="contact" className="bg-white py-24 sm:py-32">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl space-y-16 divide-y divide-gray-100 lg:mx-0 lg:max-w-none">
+              <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
+                <div>
+                  <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+                    Contact us
+                  </h2>
+                  <p className="mt-4 leading-7 text-gray-600">
+                    Be ready to talk to us at any time, we are here to help you.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8">
+                  <div className="rounded-2xl bg-gray-50 p-10">
+                    <h3 className="text-base font-semibold leading-7 text-gray-900">
+                      Business
+                    </h3>
+                    <dl className="mt-3 space-y-1 text-sm leading-6 text-gray-600">
+                      <div>
+                        <dt className="sr-only">Email</dt>
+                        <dd>
+                          <a
+                            className="font-semibold text-indigo-600"
+                            href="mailto:collaborate@example.com"
+                          >
+                            business@paperlabs.com
+                          </a>
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                  <div className="rounded-2xl bg-gray-50 p-10">
+                    <h3 className="text-base font-semibold leading-7 text-gray-900">
+                      Say hello
+                    </h3>
+                    <dl className="mt-3 space-y-1 text-sm leading-6 text-gray-600">
+                      <div>
+                        <dt className="sr-only">Email</dt>
+                        <dd>
+                          <a
+                            className="font-semibold text-indigo-600"
+                            href="mailto:press@example.com"
+                          >
+                            hello@example.com
+                          </a>
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                  <div className="rounded-2xl bg-gray-50 p-10">
+                    <h3 className="text-base font-semibold leading-7 text-gray-900">
+                      Join our team
+                    </h3>
+                    <dl className="mt-3 space-y-1 text-sm leading-6 text-gray-600">
+                      <div>
+                        <dt className="sr-only">Email</dt>
+                        <dd>
+                          <a
+                            className="font-semibold text-indigo-600"
+                            href="mailto:careers@example.com"
+                          >
+                            careers@paperlabs.com
+                          </a>
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                  <div className="rounded-2xl bg-gray-50 p-10">
+                    <h3 className="text-base font-semibold leading-7 text-gray-900">
+                      Help
+                    </h3>
+                    <dl className="mt-3 space-y-1 text-sm leading-6 text-gray-600">
+                      <div>
+                        <dt className="sr-only">Email</dt>
+                        <dd>
+                          <a
+                            className="font-semibold text-indigo-600"
+                            href="mailto:hello@example.com"
+                          >
+                            help@paperlabs.com
+                          </a>
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
