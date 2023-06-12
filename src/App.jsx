@@ -764,7 +764,7 @@ export default function Example() {
           </dl>
         </div> */}
         {/* timeline */}
-        <div id="roadmap" className="bg-white py-24 sm:py-32">
+        <div id="roadmap" className="bg-white mt-32 sm:mt-48">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-4">
               {timeline.map((item) => (
@@ -799,7 +799,7 @@ export default function Example() {
         </div>
 
         {/* Logo cloud */}
-        <div className="relative isolate -z-10 mt-16 sm:mt-24">
+        <div className="relative isolate -z-10 mt-32 sm:mt-48">
           <div className="absolute inset-x-0 top-1/2 -z-10 flex -translate-y-1/2 justify-center overflow-hidden [mask-image:radial-gradient(50%_45%_at_50%_55%,white,transparent)]">
             <svg
               className="h-[40rem] w-[80rem] flex-none stroke-gray-200"
