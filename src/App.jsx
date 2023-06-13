@@ -1059,7 +1059,7 @@ export default function Example() {
                             className="font-semibold text-indigo-600"
                             href="mailto:press@example.com"
                           >
-                            hello@example.com
+                            hello@paperlabs.com
                           </a>
                         </dd>
                       </div>
